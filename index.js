@@ -618,7 +618,7 @@ showPopup('Failed to generate config. Please try again.', 'error');
 });
 
 document.getElementById('telegramButton').onclick = function() {
-    window.location.href = 'https://t.me/warp_1_1_1_1';
+    window.location.href = 'https://my-other-projects.vercel.app/';
 }
 
 
@@ -655,10 +655,6 @@ document.getElementById('BoostyButton').onclick = function() {
     }
 };
 
-
-document.getElementById('githubButton').onclick = function() {
-    window.location.href = 'https://chatter-bike-3df.notion.site/1f72684dab0d8092a582ed6328632d06';
-}
 
 document.getElementById('promoButton').onclick = function() {
     window.location.href = 'https://chatter-bike-3df.notion.site/Amnezia-Premium-1f72684dab0d8013a057ed6562c8bdca';
