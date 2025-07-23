@@ -432,7 +432,7 @@ WiW.addEventListener('click', async () => {
         showPopup('No configuration to download', 'Ошибка');
         return;
     }
-    downloadConfig(`Скачать WARPinWARP_${randomNumber}.conf`, content);
+    downloadConfig(`WARPinWARP_${randomNumber}.conf`, content);
     showPopup('Скачивание конфигурации');
     } catch (error) {
         console.error('Error processing configuration:', error);
