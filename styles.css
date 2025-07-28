@@ -298,12 +298,14 @@ button:disabled {
 }
 
 .payment-options {
-  display: inline-flex;
+  display: grid;
   gap: 8px; /* space-y-2 equivalent */
 }
 
 .Sites {
-  display: flex;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  display: grid;
+  align-items: center;
   gap: 8px; /* space-y-2 equivalent */
   flex-wrap: wrap; 
 }
@@ -423,7 +425,11 @@ transform: none;
 	text-align: center;}
 
 @media (max-width: 730px) {
-	       
+	.Sites {grid-template-columns: repeat(2, minmax(0, 1fr))}
+	.modal-content {
+    max-width: 346px;
+	min-width: 80%;
+	}	
 	#logo {max-width: 90%}   
 	#telegramButton,#BoostyButton,#githubButton,#DonationAlertsButton,#BoostyNewButton {
     max-width: 90%;
