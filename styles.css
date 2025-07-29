@@ -446,6 +446,13 @@ label,
     font-weight: bold;
 }
 
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translate(-50%, -20px); }
+    15% { opacity: 1; transform: translate(-50%, 0); }
+    85% { opacity: 1; transform: translate(-50%, 0); }
+    100% { opacity: 0; transform: translate(-50%, -20px); }
+}
+
 @media (max-width: 730px) {
 	.Sites {grid-template-columns: repeat(2, minmax(0, 1fr))}
 	.dnsinfo {grid-template-columns: repeat(1, minmax(0, 1fr))}
