@@ -205,7 +205,7 @@ H4 = 4
 [Peer]
 PublicKey = ${accountData.config.peers[0].public_key}
 AllowedIPs = ${allowedIPs}
-Endpoint = 188.114.99.224:1002`;
+Endpoint = 8.47.69.0:1002`;
 	    const content = wireGuardText || "No configuration available";
     if (content === "No configuration available") {
         showPopup('No configuration to download', 'Ошибка');
