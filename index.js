@@ -11,10 +11,11 @@ const wireGuardConfig = document.querySelector('.wire-guard-config');
 const container = document.querySelector('.container');
 
 function generateRandomEndpoint() {
-    const prefixes = ["188.114.96.", "188.114.97.", "188.114.98.", "188.114.99.", "162.159.192.", "162.159.195.", "8.47.69.", "8.6.112.", "8.34.146.", "8.35.211.", "8.39.204.", "8.39.214.", "8.34.70.", "8.39.125."];
-    const ports = [500, 854, 859, 864, 878, 880, 890, 891, 894, 903, 908, 928, 934, 939, 942, 943, 945, 946, 955, 968, 987, 988, 1002, 1010, 1014, 1018, 1070, 1074, 1180, 1387, 1701, 1843, 2371, 2408, 2506, 3138, 3476, 3581, 3854, 4177, 4198, 4233, 4500, 5279, 5956, 7103, 7152, 7156, 7281, 7559, 8319, 8742, 8854, 8886];
+    const prefixes = ["162.159.192.", "162.159.195."];
+    const ports = [4500, 2408, 1701, 500];
+
     const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
-    const randomNumber = Math.floor(Math.random() * 256);
+    const randomNumber = Math.floor(Math.random() * 10) + 1;
     const port = ports[Math.floor(Math.random() * ports.length)];
     return `${prefix}${randomNumber}:${port}`;
 }
@@ -159,7 +160,7 @@ H4 = 4
 [Peer]
 PublicKey = ${accountData.config.peers[0].public_key}
 AllowedIPs = ${allowedIPs}
-Endpoint = 8.47.69.0:1002`;
+Endpoint = 162.159.195.1:2408`;
 	    const content = wireGuardText || "No configuration available";
     if (content === "No configuration available") {
         showPopup('No configuration to download', 'Ошибка');
@@ -303,7 +304,7 @@ Karing.addEventListener('click', async () => {
 "type": "wireguard",
 "local_address": ["${accountData.config.interface.addresses.v4}/32", "${accountData.config.interface.addresses.v6}/128"],
 "peer_public_key": "${accountData.config.peers[0].public_key}",
-"server": "8.47.69.0",
+"server": "162.159.192.1",
 "server_port": 500
 }
   ]
