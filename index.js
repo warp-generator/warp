@@ -170,7 +170,7 @@ I1 = ${getRandomI1()}
 [Peer]
 PublicKey = ${accountData.config.peers[0].public_key}
 AllowedIPs = ${allowedIPs}
-Endpoint = 162.159.195.1:500`;
+Endpoint = 162.159.192.1:500`;
 	    const content = wireGuardText || "No configuration available";
     if (content === "No configuration available") {
         showPopup('No configuration to download', 'Ошибка');
@@ -369,7 +369,7 @@ WiW.addEventListener('click', async () => {
 "type": "wireguard",
 "local_address": ["${accountData.config.interface.addresses.v4}/32", "${accountData.config.interface.addresses.v6}/128"],
 "peer_public_key": "${accountData.config.peers[0].public_key}",
-"server": "188.114.97.170",
+"server": "162.159.192.1",
 "server_port": 500
 },
   {
@@ -381,8 +381,8 @@ WiW.addEventListener('click', async () => {
    "peer_public_key": "${accountData2.config.peers[0].public_key}",
    "reserved": [${reserved2}],
    "mtu": 1200,
-   "server": "188.114.97.170",
-   "server_port": 1018
+   "server": "162.159.192.1",
+   "server_port": 2408
   }
   ]
 }`;
@@ -422,7 +422,7 @@ Neko.addEventListener('click', async () => {
 "type": "wireguard",
 "local_address": ["${accountData.config.interface.addresses.v4}/32", "${accountData.config.interface.addresses.v6}/128"],
 "peer_public_key": "${accountData.config.peers[0].public_key}",
-"server": "8.47.69.0",
+"server": "162.159.192.1",
 "server_port": 500
 }`;
 	    const content = wireGuardText || "No configuration available";
@@ -463,7 +463,7 @@ Husi.addEventListener('click', async () => {
 "listen_port": 0,
 "peers": [
 {
-"address": "8.47.69.0",
+"address": "162.159.192.1",
 "port": 500,
 "public_key": "${accountData.config.peers[0].public_key}",
 "pre_shared_key": "",
@@ -515,7 +515,7 @@ Clash.addEventListener('click', async () => {
 - name: "WARP"
   type: wireguard
   private-key: ${privateKey}
-  server: 188.114.96.0
+  server: 162.159.192.1
   port: 500
   ip: ${accountData.config.interface.addresses.v4}
   public-key: ${accountData.config.peers[0].public_key}
@@ -540,8 +540,8 @@ Clash.addEventListener('click', async () => {
   dialer-proxy: WARP
   type: wireguard
   private-key: ${privateKey2}
-  server: 188.114.97.170
-  port: 1018
+  server: 162.159.192.1
+  port: 2408
   ip: ${accountData2.config.interface.addresses.v4}
   public-key: ${accountData2.config.peers[0].public_key}
   allowed-ips: ['0.0.0.0/0']
