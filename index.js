@@ -170,7 +170,7 @@ I1 = ${getRandomI1()}
 [Peer]
 PublicKey = ${accountData.config.peers[0].public_key}
 AllowedIPs = ${allowedIPs}
-Endpoint = 162.159.192.1:500`;
+Endpoint = engage.cloudflareclient.com:500`;
 	    const content = wireGuardText || "No configuration available";
     if (content === "No configuration available") {
         showPopup('No configuration to download', 'Ошибка');
