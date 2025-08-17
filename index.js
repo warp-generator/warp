@@ -588,7 +588,7 @@ Throne.addEventListener('click', async () => {
         const accountData = await fetchAccount(publicKey, installId, fcmToken);
         const reserved = generateReserved(accountData.config.client_id).replace(/, /g, '-');
         const privateKeyWithoutEqual = privateKey.replace(/=$/, '');
-        const wireGuardText = `wg://8.47.69.0:500?private_key=${privateKeyWithoutEqual}%3D&peer_public_key=bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo%3D&pre_shared_key=&reserved=${reserved}&persistent_keepalive=0&mtu=1280&use_system_interface=false&local_address=${accountData.config.interface.addresses.v4}/32-${accountData.config.interface.addresses.v6}/128&workers=0&enable_amenzia=true&junk_packet_count=4&junk_packet_min_size=40&junk_packet_max_size=70&init_packet_junk_size=0&response_packet_junk_size=0&init_packet_magic_header=1&response_packet_magic_header=2&underload_packet_magic_header=3&transport_packet_magic_header=4#WARP`;
+        const wireGuardText = `wg://162.159.192.1:500?private_key=${privateKeyWithoutEqual}%3D&peer_public_key=bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo%3D&pre_shared_key=&reserved=${reserved}&persistent_keepalive=0&mtu=1280&use_system_interface=false&local_address=${accountData.config.interface.addresses.v4}/32-${accountData.config.interface.addresses.v6}/128&workers=0&enable_amnezia=true&junk_packet_count=4&junk_packet_min_size=40&junk_packet_max_size=70&init_packet_junk_size=0&response_packet_junk_size=0&init_packet_magic_header=1&response_packet_magic_header=2&underload_packet_magic_header=3&transport_packet_magic_header=4#WARP`;
 
         // Показываем модальное окно с конфигурацией
         document.getElementById('throneText').value = wireGuardText;
