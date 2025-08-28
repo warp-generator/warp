@@ -11,13 +11,18 @@ const wireGuardConfig = document.querySelector('.wire-guard-config');
 const container = document.querySelector('.container');
 
 function generateRandomEndpoint() {
-    const prefixes = ["162.159.192.", "162.159.195."];
+    const prefixes = ["162.159.192.", "162.159.195.", "engage.cloudflareclient.com"];
     const ports = [4500, 2408, 1701, 500];
 
     const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
     const randomNumber = Math.floor(Math.random() * 10) + 1;
     const port = ports[Math.floor(Math.random() * ports.length)];
-    return `${prefix}${randomNumber}:${port}`;
+
+    if (prefix === "engage.cloudflareclient.com") {
+        return `${prefix}:${port}`;
+    } else {
+        return `${prefix}${randomNumber}:${port}`;
+    }
 }
 
 function getRandomJcParams() {
@@ -195,6 +200,7 @@ AWGp.addEventListener('click', async () => {
         const accountData = await fetchAccount(publicKey, installId, fcmToken);
 		const selectedDNS = getSelectedDNS();
 		const allowedIPs = getSelectedSites();
+		const randomEndpoint = generateRandomEndpoint();
 		const wireGuardText = `[Interface]
 PrivateKey = ${privateKey}
 Address = ${accountData.config.interface.addresses.v4}, ${accountData.config.interface.addresses.v6}
@@ -213,13 +219,13 @@ H4 = 4
 [Peer]
 PublicKey = ${accountData.config.peers[0].public_key}
 AllowedIPs = ${allowedIPs}
-Endpoint = engage.cloudflareclient.com:500`;
+Endpoint = ${randomEndpoint}`;
 	    const content = wireGuardText || "No configuration available";
     if (content === "No configuration available") {
         showPopup('No configuration to download', 'Ошибка');
         return;
     }
-    downloadConfig(`WARPp_${randomNumber}.conf`, content);
+    downloadConfig(`WARPr_${randomNumber}.conf`, content);
     showPopup('Скачивание конфигурации');
     } catch (error) {
         console.error('Error processing configuration:', error);
