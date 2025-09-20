@@ -618,7 +618,7 @@ function getSelectedDNS() {
     if (document.getElementById('dns1').checked) {
         return "1.1.1.1, 1.0.0.1, 2606:4700:4700::1111, 2606:4700:4700::1001";
     } else if (document.getElementById('dns2').checked) {
-        return "45.95.233.23, 2a05:541:104:7f::1, 64.188.98.242, 2a01:ecc0:2c1:2::2";
+        return "84.21.189.133, 2a12:bec4:1460:d5::2, 64.188.98.242, 2a01:ecc0:2c1:2::2";
     } else if (document.getElementById('dns3').checked) {
         return "176.99.11.77, 80.78.247.254, 2a00:f940:2:4:2::5d1b, 2a00:f940:2:4:2::21ed";
     }
