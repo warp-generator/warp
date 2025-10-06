@@ -40,7 +40,7 @@ body {
     margin: 0 auto; /* Центрируем и добавляем отступ снизу */
 }
 
-#throne
+#clash
 {	
     margin-bottom: 10px;
 }
@@ -554,3 +554,15 @@ word-break: break-all;}
 }
 		
     
+@media (max-width: 350px) {
+	.containerAWG, .containerClash {
+    width: auto;
+    margin: 0;
+}
+.info-button {
+    left: 37px;
+}
+	.grid-container {
+        grid-template-columns: none;
+        grid-auto-columns: 100%;}
+}
