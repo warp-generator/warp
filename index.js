@@ -520,13 +520,14 @@ Clash.addEventListener('click', async () => {
   server: 162.159.192.1
   port: 500
   ip: ${accountData.config.interface.addresses.v4}
+  ipv6: ${accountData.config.interface.addresses.v6}
   public-key: ${accountData.config.peers[0].public_key}
   allowed-ips: ['0.0.0.0/0']
   reserved: [${reserved}]
   udp: true
   mtu: 1280
   remote-dns-resolve: true
-  dns: [1.1.1.1, 1.0.0.1]
+  dns: [1.1.1.1, 1.0.0.1, 2606:4700:4700::1111, 2606:4700:4700::1001]
   amnezia-wg-option:
    jc: 120
    jmin: 23
@@ -545,13 +546,14 @@ Clash.addEventListener('click', async () => {
   server: 162.159.192.1
   port: 2408
   ip: ${accountData2.config.interface.addresses.v4}
+  ipv6: ${accountData2.config.interface.addresses.v6}
   public-key: ${accountData2.config.peers[0].public_key}
   allowed-ips: ['0.0.0.0/0']
   reserved: [${reserved2}]
   udp: true
   mtu: 1200
   remote-dns-resolve: true
-  dns: [1.1.1.1, 1.0.0.1]
+  dns: [1.1.1.1, 1.0.0.1, 2606:4700:4700::1111, 2606:4700:4700::1001]
   
 proxy-groups:
 - name: Cloudflare
@@ -633,13 +635,14 @@ Clash15.addEventListener('click', async () => {
   server: 162.159.192.1
   port: 500
   ip: ${accountData.config.interface.addresses.v4}
+  ipv6: ${accountData.config.interface.addresses.v6}
   public-key: ${accountData.config.peers[0].public_key}
   allowed-ips: ['0.0.0.0/0']
   reserved: [${reserved}]
   udp: true
   mtu: 1280
   remote-dns-resolve: true
-  dns: [1.1.1.1, 1.0.0.1]
+  dns: [1.1.1.1, 1.0.0.1, 2606:4700:4700::1111, 2606:4700:4700::1001]
   amnezia-wg-option:
    jc: 120
    jmin: 23
