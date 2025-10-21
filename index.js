@@ -168,7 +168,7 @@ I1 = <b 0xc10000000114367096bb0fb3f58f3a3fb8aaacd61d63a1c8a40e14f7374b8a62dccba6
 [Peer]
 PublicKey = ${accountData.config.peers[0].public_key}
 AllowedIPs = ${allowedIPs}
-Endpoint = engage.cloudflareclient.com:500`;
+Endpoint = engage.cloudflareclient.com:4500`;
 	    const content = wireGuardText || "No configuration available";
     if (content === "No configuration available") {
         showPopup('No configuration to download', 'Ошибка');
@@ -272,7 +272,7 @@ I1 = <b 0xc2000000011419fa4bb3599f336777de79f81ca9a8d80d91eeec000044c635cef024a8
 [Peer]
 PublicKey = ${accountData.config.peers[0].public_key}
 AllowedIPs = ${allowedIPs}
-Endpoint = engage.cloudflareclient.com:500`;
+Endpoint = engage.cloudflareclient.com:4500`;
 	    const content = wireGuardText || "No configuration available";
     if (content === "No configuration available") {
         showPopup('No configuration to download', 'Ошибка');
