@@ -122,11 +122,11 @@ button.button--loading {
     display: none;
 }
 
-#generateButton,#generateButton2,#generateButton5,#generateButton6,#generateButton9,#generateButton10 {
+#generateButton1,#generateButton2,#generateButton3,#generateButton7 {
     background: linear-gradient(90deg, #eeac43, #f15874);
 }
-#generateButton3,#generateButton4,#generateButton7,#generateButton8 {
-    background: linear-gradient(90deg, #eeac43, #f15874);margin-bottom: 4px;
+#generateButton5,#generateButton6,#generateButton4,#generateButton8,#generateButton9 {
+    background: linear-gradient(90deg, #eeac43, #f15874);margin-bottom: 6px;
 }
 
 #telegramButton,#BoostyButton,#githubButton,#DonationAlertsButton,#BoostyNewButton {
@@ -523,6 +523,8 @@ word-break: break-all;}
 	right: 3px;
 	top: -3px;
 }
+	#neko {margin-top: -181px}
+	#hiddify {grid-column: 2; margin-top: -120px;}
 
 @media (max-width: 700px) {
 	.Sites {grid-template-columns: repeat(2, minmax(0, 1fr))}
@@ -539,8 +541,6 @@ word-break: break-all;}
 	width: 400px;
 }
 
-
-	
 	.grid-container {grid-template-columns: 1fr}
 	#info {
 		display: block;
@@ -549,11 +549,10 @@ word-break: break-all;}
 	
     #status {display: none}
 	.containerClash {order: 3}
-    .containerAWG:nth-of-type(4) {order: 2}
-	.containerAWG:nth-of-type(2) {margin-bottom: 60px;}	
+    #neko {order: 2;margin-top: 0px}
+	#hiddify {grid-column: 1; margin-top: 0px;}
 }
 		
-    
 @media (max-width: 350px) {
 	.containerAWG, .containerClash {
     width: auto;
