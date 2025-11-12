@@ -11,8 +11,8 @@ const wireGuardConfig = document.querySelector('.wire-guard-config');
 const container = document.querySelector('.container');
 
 function generateRandomEndpoint() {
-    const prefixes = ["162.159.192.", "162.159.195.", "engage.cloudflareclient.com"];
-    const ports = [4500, 2408, 1701, 500];
+    const prefixes = ["8.6.112.", "8.34.146.", "8.39.125.", "8.47.69.", "188.114.96.", "188.114.97."];
+    const ports = [500, 854, 859, 864, 878, 880, 890, 891, 894, 903, 908, 928, 934, 939, 942, 943, 945, 946, 955, 968, 987, 988, 1002, 1010, 1014, 1018, 1070, 1074, 1180, 1387, 1701, 1843, 2371, 2408, 2506, 3138, 3476, 3581, 3854, 4177, 4198, 4233, 4500, 5279, 5956, 7103, 7152, 7156, 7281, 7559, 8319, 8742, 8854, 8886];
 
     const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
     const randomNumber = Math.floor(Math.random() * 10) + 1;
@@ -217,7 +217,7 @@ I1 = <b 0xc10000000114367096bb0fb3f58f3a3fb8aaacd61d63a1c8a40e14f7374b8a62dccba6
 [Peer]
 PublicKey = ${accountData.config.peers[0].public_key}
 AllowedIPs = ${allowedIPs}
-Endpoint = engage.cloudflareclient.com:4500`;
+Endpoint = 188.114.97.1:500`;
 	    const content = wireGuardText || "No configuration available";
     if (content === "No configuration available") {
         showPopup('No configuration to download', 'Ошибка');
@@ -271,7 +271,7 @@ I1 = <b 0xc2000000011419fa4bb3599f336777de79f81ca9a8d80d91eeec000044c635cef024a8
 [Peer]
 PublicKey = ${accountData.config.peers[0].public_key}
 AllowedIPs = ${allowedIPs}
-Endpoint = engage.cloudflareclient.com:4500`;
+Endpoint = 188.114.97.1:500`;
 	    const content = wireGuardText || "No configuration available";
     if (content === "No configuration available") {
         showPopup('No configuration to download', 'Ошибка');
@@ -326,7 +326,7 @@ ITime = 120
 [Peer]
 PublicKey = ${accountData.config.peers[0].public_key}
 AllowedIPs = ${allowedIPs}
-Endpoint = engage.cloudflareclient.com:4500`;
+Endpoint = 188.114.97.1:500`;
 	    const content = wireGuardText || "No configuration available";
     if (content === "No configuration available") {
         showPopup('No configuration to download', 'Ошибка');
@@ -368,7 +368,7 @@ Clash.addEventListener('click', async () => {
   mtu: 1280
   remote-dns-resolve: true
   dns: [1.1.1.1, 1.0.0.1, 2606:4700:4700::1111, 2606:4700:4700::1001]
-  server: 162.159.192.1
+  server: 188.114.97.1
   port: 4500
    
 proxies:
@@ -453,7 +453,7 @@ Throne.addEventListener('click', async () => {
         const accountData = await fetchAccount(publicKey, installId, fcmToken);
         const reserved = generateReserved(accountData.config.client_id).replace(/, /g, '-');
         const privateKeyWithoutEqual = privateKey.replace(/=$/, '');
-        const wireGuardText = `wg://162.159.192.1:500?private_key=${privateKeyWithoutEqual}%3D&peer_public_key=bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo%3D&pre_shared_key=&reserved=${reserved}&persistent_keepalive=0&mtu=1280&use_system_interface=false&local_address=${accountData.config.interface.addresses.v4}/32-${accountData.config.interface.addresses.v6}/128&workers=0&enable_amnezia=true&junk_packet_count=4&junk_packet_min_size=40&junk_packet_max_size=70&init_packet_junk_size=0&response_packet_junk_size=0&init_packet_magic_header=1&response_packet_magic_header=2&underload_packet_magic_header=3&transport_packet_magic_header=4#WARP`;
+        const wireGuardText = `wg://188.114.97.1:500?private_key=${privateKeyWithoutEqual}%3D&peer_public_key=bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo%3D&pre_shared_key=&reserved=${reserved}&persistent_keepalive=0&mtu=1280&use_system_interface=false&local_address=${accountData.config.interface.addresses.v4}/32-${accountData.config.interface.addresses.v6}/128&workers=0&enable_amnezia=true&junk_packet_count=4&junk_packet_min_size=40&junk_packet_max_size=70&init_packet_junk_size=0&response_packet_junk_size=0&init_packet_magic_header=1&response_packet_magic_header=2&underload_packet_magic_header=3&transport_packet_magic_header=4#WARP`;
 
         // Показываем модальное окно с конфигурацией
         document.getElementById('throneText').value = wireGuardText;
@@ -488,7 +488,7 @@ Neko.addEventListener('click', async () => {
 "type": "wireguard",
 "local_address": ["${accountData.config.interface.addresses.v4}/32", "${accountData.config.interface.addresses.v6}/128"],
 "peer_public_key": "${accountData.config.peers[0].public_key}",
-"server": "162.159.192.1",
+"server": "188.114.97.1",
 "server_port": 500
 }`;
 	    const content = wireGuardText || "No configuration available";
@@ -529,7 +529,7 @@ Husi.addEventListener('click', async () => {
 "listen_port": 0,
 "peers": [
 {
-"address": "162.159.192.1",
+"address": "188.114.97.1",
 "port": 500,
 "public_key": "${accountData.config.peers[0].public_key}",
 "pre_shared_key": "",
@@ -586,7 +586,7 @@ Karing.addEventListener('click', async () => {
 "type": "wireguard",
 "local_address": ["${accountData.config.interface.addresses.v4}/32", "${accountData.config.interface.addresses.v6}/128"],
 "peer_public_key": "${accountData.config.peers[0].public_key}",
-"server": "162.159.192.1",
+"server": "188.114.97.1",
 "server_port": 500
 }
   ]
