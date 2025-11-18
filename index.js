@@ -7,6 +7,7 @@ const Throne = document.querySelector('.get-btn6');
 const Neko = document.querySelector('.get-btn7');
 const Husi = document.querySelector('.get-btn8');
 const Karing = document.querySelector('.get-btn9');
+const WireSock = document.querySelector('.get-btn10');
 const wireGuardConfig = document.querySelector('.wire-guard-config');
 const container = document.querySelector('.container');
 
@@ -601,6 +602,66 @@ Karing.addEventListener('click', async () => {
     } catch (error) {
         console.error('Error processing configuration:', error);
 showPopup('Failed to generate config. Please try again.', 'error');
+    } finally {
+        button.disabled = false;
+        button.classList.remove("button--loading");
+    } 
+});
+
+// WireSock
+WireSock.addEventListener('click', async () => {
+    const button = document.getElementById('generateButton10');
+    const status = document.getElementById('status');
+    const randomNumber = Math.floor(Math.random() * (99 - 10 + 1)) + 10;
+    button.disabled = true;
+    button.classList.add("button--loading");
+    try {
+        const { publicKey, privateKey } = await fetchKeys();
+        const installId = generateRandomString(22);
+        const fcmToken = `${installId}:APA91b${generateRandomString(134)}`;
+        const accountData = await fetchAccount(publicKey, installId, fcmToken);
+        const selectedDNS = getSelectedDNS();
+        const allowedIPs = getSelectedSites();
+        const randomEndpoint = generateRandomEndpoint();
+        const domains = ['ozon.ru', 'apteka.ru', 'mail.ru', 'sberbank.ru', 'psbank.ru', 'lenta.ru', 'www.pochta.ru'];
+        const randomDomain = domains[Math.floor(Math.random() * domains.length)];
+        
+        const wireGuardText = `[Interface]
+PrivateKey = ${privateKey}
+Address = ${accountData.config.interface.addresses.v4}, ${accountData.config.interface.addresses.v6}
+DNS = ${selectedDNS}
+MTU = 1280
+S1 = 0
+S2 = 0
+Jc = 4
+Jmin = 40
+Jmax = 70
+H1 = 1
+H2 = 2
+H3 = 3
+H4 = 4
+
+# Protocol masking
+
+Id = ${randomDomain}
+Ip = quic
+Ib = firefox
+
+[Peer]
+PublicKey = ${accountData.config.peers[0].public_key}
+AllowedIPs = ${allowedIPs}
+Endpoint = ${randomEndpoint}`;
+        
+        const content = wireGuardText || "No configuration available";
+        if (content === "No configuration available") {
+            showPopup('No configuration to download', 'Ошибка');
+            return;
+        }
+        downloadConfig(`WARPw_${randomNumber}.conf`, content);
+        showPopup('Скачивание конфигурации');
+    } catch (error) {
+        console.error('Error processing configuration:', error);
+        showPopup('Failed to generate config. Please try again.', 'error');
     } finally {
         button.disabled = false;
         button.classList.remove("button--loading");
