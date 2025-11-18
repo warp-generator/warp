@@ -125,7 +125,7 @@ button.button--loading {
 #generateButton1,#generateButton2,#generateButton3,#generateButton7 {
     background: linear-gradient(90deg, #eeac43, #f15874);
 }
-#generateButton5,#generateButton6,#generateButton4,#generateButton8,#generateButton9 {
+#generateButton5,#generateButton6,#generateButton4,#generateButton8,#generateButton9,#generateButton10 {
     background: linear-gradient(90deg, #eeac43, #f15874);margin-bottom: 6px;
 }
 
@@ -523,8 +523,10 @@ word-break: break-all;}
 	right: 3px;
 	top: -3px;
 }
-	#neko {margin-top: -181px}
-	#hiddify {grid-column: 2; margin-top: -120px;}
+	#neko {margin-top: -120px}
+	#wiresock {margin-top: -170px;}
+	#clash {margin-top: 10px;}
+	#throne {margin-top: 20px;}
 
 @media (max-width: 700px) {
 	.Sites {grid-template-columns: repeat(2, minmax(0, 1fr))}
@@ -534,7 +536,7 @@ word-break: break-all;}
 	min-width: 80%;
 	}	
 	
-	#throne {display:none}
+	#throne,#wiresock {display:none}
 	#logo {max-width: 90%}   
 	#telegramButton,#BoostyButton,#githubButton,#DonationAlertsButton,#BoostyNewButton {
     max-width: 90%;
@@ -551,6 +553,7 @@ word-break: break-all;}
 	.containerClash {order: 3}
     #neko {order: 2;margin-top: 0px}
 	#hiddify {grid-column: 1; margin-top: 0px;}
+	#clash {margin-top: 0px;}
 }
 		
 @media (max-width: 350px) {
