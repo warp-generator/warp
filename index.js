@@ -42,14 +42,7 @@ const generateRandomString = (length) =>
 
 const fetchKeys = async () => {
     try {
-        // Добавляем таймаут 6 секунд
-        const timeoutPromise = new Promise((_, reject) => 
-            setTimeout(() => reject(new Error('Request timeout after 6 seconds')), 6000)
-        );
-        
-        const fetchPromise = fetch('https://keygen.warp-generator.workers.dev');
-        const response = await Promise.race([fetchPromise, timeoutPromise]);
-        
+        const response = await fetch('https://keygen.warp-generator.workers.dev');
         if (!response.ok) throw new Error(`Failed to fetch keys: ${response.status}`);
         const data = await response.text();
         return {
@@ -57,51 +50,13 @@ const fetchKeys = async () => {
             privateKey: extractKey(data, 'PrivateKey'),
         };
     } catch (error) {
-        console.warn('Primary keygen failed, trying backup...', error);
-        
-        // Резервный запрос тоже с таймаутом
-        try {
-            const timeoutPromise = new Promise((_, reject) => 
-                setTimeout(() => reject(new Error('Backup request timeout')), 6000)
-            );
-            
-            const backupPromise = fetch('https://warp-gen.vercel.app/generate-config');
-            const backupResponse = await Promise.race([backupPromise, timeoutPromise]);
-            
-            if (!backupResponse.ok) throw new Error(`Backup API failed: ${backupResponse.status}`);
-            
-            const backupData = await backupResponse.json();
-            
-            // Парсим конфигурацию из backup API
-            const configText = backupData.config;
-            const privateKeyMatch = configText.match(/PrivateKey\s*=\s*([^\s]+)/);
-            const publicKeyMatch = configText.match(/PublicKey\s*=\s*([^\s]+)/);
-            
-            if (privateKeyMatch && publicKeyMatch) {
-                return {
-                    publicKey: publicKeyMatch[1].trim(),
-                    privateKey: privateKeyMatch[1].trim(),
-                };
-            } else {
-                throw new Error('Could not extract keys from backup config');
-            }
-        } catch (backupError) {
-            console.error('Backup keygen also failed:', backupError);
-            throw new Error('Both primary and backup key generation failed');
-        }
+        console.error('Error fetching keys:', error);
+        throw error;
     }
 };
-
 const fetchKeys2 = async () => {
     try {
-        // Добавляем таймаут 6 секунд
-        const timeoutPromise = new Promise((_, reject) => 
-            setTimeout(() => reject(new Error('Request timeout after 6 seconds')), 6000)
-        );
-        
-        const fetchPromise = fetch('https://keygen.warp-generator.workers.dev');
-        const response = await Promise.race([fetchPromise, timeoutPromise]);
-        
+        const response = await fetch('https://keygen.warp-generator.workers.dev');
         if (!response.ok) throw new Error(`Failed to fetch keys: ${response.status}`);
         const data = await response.text();
         return {
@@ -109,50 +64,15 @@ const fetchKeys2 = async () => {
             privateKey2: extractKey(data, 'PrivateKey'),
         };
     } catch (error) {
-        console.warn('Primary keygen failed, trying backup...', error);
-        
-        // Резервный запрос тоже с таймаутом
-        try {
-            const timeoutPromise = new Promise((_, reject) => 
-                setTimeout(() => reject(new Error('Backup request timeout')), 6000)
-            );
-            
-            const backupPromise = fetch('https://warp-gen.vercel.app/generate-config');
-            const backupResponse = await Promise.race([backupPromise, timeoutPromise]);
-            
-            if (!backupResponse.ok) throw new Error(`Backup API failed: ${backupResponse.status}`);
-            
-            const backupData = await backupResponse.json();
-            
-            // Парсим конфигурацию из backup API
-            const configText = backupData.config;
-            const privateKeyMatch = configText.match(/PrivateKey\s*=\s*([^\s]+)/);
-            const publicKeyMatch = configText.match(/PublicKey\s*=\s*([^\s]+)/);
-            
-            if (privateKeyMatch && publicKeyMatch) {
-                return {
-                    publicKey2: publicKeyMatch[1].trim(),
-                    privateKey2: privateKeyMatch[1].trim(),
-                };
-            } else {
-                throw new Error('Could not extract keys from backup config');
-            }
-        } catch (backupError) {
-            console.error('Backup keygen also failed:', backupError);
-            throw new Error('Both primary and backup key generation failed');
-        }
+        console.error('Error fetching keys:', error);
+        throw error;
     }
 };
 
 const fetchAccount = async (publicKey, installId, fcmToken) => {
     const apiUrl = 'https://www.warp-generator.workers.dev/wg';
     try {
-        // Добавляем таймаут 6 секунд
-        const timeoutPromise = new Promise((_, reject) => 
-            setTimeout(() => reject(new Error('Request timeout after 6 seconds')), 6000)
-        );
-        
-        const fetchPromise = fetch(apiUrl, {
+        const response = await fetch(apiUrl, {
             method: 'POST',
             headers: {
                 'User-Agent': 'okhttp/3.12.1',
@@ -169,64 +89,13 @@ const fetchAccount = async (publicKey, installId, fcmToken) => {
                 locale: 'de_DE',
             }),
         });
-        
-        const response = await Promise.race([fetchPromise, timeoutPromise]);
-        
         if (!response.ok) throw new Error(`Failed to fetch account: ${response.status}`);
         return response.json();
     } catch (error) {
-        console.warn('Primary account API failed, trying backup...', error);
-        
-        // Резервный запрос тоже с таймаутом
-        try {
-            const timeoutPromise = new Promise((_, reject) => 
-                setTimeout(() => reject(new Error('Backup request timeout')), 6000)
-            );
-            
-            const backupPromise = fetch('https://warp-gen.vercel.app/generate-config');
-            const backupResponse = await Promise.race([backupPromise, timeoutPromise]);
-            
-            if (!backupResponse.ok) throw new Error(`Backup API failed: ${backupResponse.status}`);
-            
-            const backupData = await backupResponse.json();
-            const configText = backupData.config;
-            
-            // Парсим все необходимые данные из конфигурации backup API
-            const addressMatch = configText.match(/Address\s*=\s*([^\n]+)/);
-            const publicKeyMatch = configText.match(/PublicKey\s*=\s*([^\s]+)/);
-            const mtuMatch = configText.match(/MTU\s*=\s*([^\s]+)/);
-            
-            if (addressMatch && publicKeyMatch) {
-                const addresses = addressMatch[1].split(',').map(addr => addr.trim());
-                const [v4, v6] = addresses.length >= 2 ? addresses : [addresses[0], ''];
-                
-                // Создаем объект, аналогичный ответу основного API
-                return {
-                    config: {
-                        interface: {
-                            addresses: {
-                                v4: v4,
-                                v6: v6
-                            }
-                        },
-                        peers: [{
-                            public_key: publicKeyMatch[1].trim()
-                        }],
-                        client_id: btoa(generateRandomString(12)), // Генерируем случайный client_id
-                        warp: true
-                    },
-                    mtu: mtuMatch ? parseInt(mtuMatch[1]) : 1280
-                };
-            } else {
-                throw new Error('Could not extract necessary data from backup config');
-            }
-        } catch (backupError) {
-            console.error('Backup account API also failed:', backupError);
-            throw new Error('Both primary and backup account generation failed');
-        }
+        console.error('Error fetching account:', error);
+        throw error;
     }
 };
-
 const extractKey = (data, keyName) =>
     data.match(new RegExp(`${keyName}:\\s(.+)`))?.[1].trim() || null;
 
