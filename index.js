@@ -40,62 +40,152 @@ const generateRandomString = (length) =>
         )
     ).join('');
 
-const fetchKeys = async () => {
+
+const fetchWithTimeout = async (url, options = {}, timeout = 3000) => {
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), timeout);
+    
     try {
-        const response = await fetch('https://keygen.warp-generator.workers.dev');
-        if (!response.ok) throw new Error(`Failed to fetch keys: ${response.status}`);
-        const data = await response.text();
-        return {
-            publicKey: extractKey(data, 'PublicKey'),
-            privateKey: extractKey(data, 'PrivateKey'),
-        };
+        const response = await fetch(url, {
+            ...options,
+            signal: controller.signal
+        });
+        clearTimeout(id);
+        return response;
     } catch (error) {
-        console.error('Error fetching keys:', error);
-        throw error;
-    }
-};
-const fetchKeys2 = async () => {
-    try {
-        const response = await fetch('https://keygen.warp-generator.workers.dev');
-        if (!response.ok) throw new Error(`Failed to fetch keys: ${response.status}`);
-        const data = await response.text();
-        return {
-            publicKey2: extractKey(data, 'PublicKey'),
-            privateKey2: extractKey(data, 'PrivateKey'),
-        };
-    } catch (error) {
-        console.error('Error fetching keys:', error);
+        clearTimeout(id);
+        if (error.name === 'AbortError') {
+            throw new Error(`Request timeout for ${url}`);
+        }
         throw error;
     }
 };
 
-const fetchAccount = async (publicKey, installId, fcmToken) => {
-    const apiUrl = 'https://www.warp-generator.workers.dev/wg';
-    try {
-        const response = await fetch(apiUrl, {
-            method: 'POST',
-            headers: {
-                'User-Agent': 'okhttp/3.12.1',
-                'CF-Client-Version': 'a-6.10-2158',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                key: publicKey,
-                install_id: installId,
-                fcm_token: fcmToken,
-                tos: new Date().toISOString(),
-                model: 'PC',
-                serial_number: installId,
-                locale: 'de_DE',
-            }),
-        });
-        if (!response.ok) throw new Error(`Failed to fetch account: ${response.status}`);
-        return response.json();
-    } catch (error) {
-        console.error('Error fetching account:', error);
-        throw error;
+const fetchKeys = async (primaryOnly = false) => {
+    const endpoints = [
+        'https://keygen.warp-generator.workers.dev',
+        'https://warp-generation.vercel.app/keys'
+    ];
+    
+    let lastError;
+    
+    for (let i = 0; i < endpoints.length; i++) {
+        try {
+            console.log(`Trying keys endpoint: ${endpoints[i]}`);
+            const response = await fetchWithTimeout(endpoints[i]);
+            
+            if (!response.ok) {
+                throw new Error(`Failed to fetch keys from ${endpoints[i]}: ${response.status}`);
+            }
+            
+            const data = await response.text();
+            return {
+                publicKey: extractKey(data, 'PublicKey'),
+                privateKey: extractKey(data, 'PrivateKey'),
+            };
+        } catch (error) {
+            console.warn(`Failed to fetch from ${endpoints[i]}:`, error.message);
+            lastError = error;
+            
+            // Если установлен флаг primaryOnly, не пытаемся использовать резервный
+            if (primaryOnly) break;
+            
+            // Если это последняя попытка, выбрасываем ошибку
+            if (i === endpoints.length - 1) {
+                throw lastError;
+            }
+        }
     }
+    
+    throw lastError;
 };
+
+const fetchKeys2 = async (primaryOnly = false) => {
+    const endpoints = [
+        'https://keygen.warp-generator.workers.dev',
+        'https://warp-generation.vercel.app/keys'
+    ];
+    
+    let lastError;
+    
+    for (let i = 0; i < endpoints.length; i++) {
+        try {
+            console.log(`Trying keys2 endpoint: ${endpoints[i]}`);
+            const response = await fetchWithTimeout(endpoints[i]);
+            
+            if (!response.ok) {
+                throw new Error(`Failed to fetch keys2 from ${endpoints[i]}: ${response.status}`);
+            }
+            
+            const data = await response.text();
+            return {
+                publicKey2: extractKey(data, 'PublicKey'),
+                privateKey2: extractKey(data, 'PrivateKey'),
+            };
+        } catch (error) {
+            console.warn(`Failed to fetch keys2 from ${endpoints[i]}:`, error.message);
+            lastError = error;
+            
+            if (primaryOnly) break;
+            
+            if (i === endpoints.length - 1) {
+                throw lastError;
+            }
+        }
+    }
+    
+    throw lastError;
+};
+
+const fetchAccount = async (publicKey, installId, fcmToken, primaryOnly = false) => {
+    const endpoints = [
+        'https://www.warp-generator.workers.dev/wg',
+        'https://warp-generation.vercel.app/wg'
+    ];
+    
+    let lastError;
+    
+    for (let i = 0; i < endpoints.length; i++) {
+        try {
+            console.log(`Trying account endpoint: ${endpoints[i]}`);
+            const response = await fetchWithTimeout(endpoints[i], {
+                method: 'POST',
+                headers: {
+                    'User-Agent': 'okhttp/3.12.1',
+                    'CF-Client-Version': 'a-6.10-2158',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    key: publicKey,
+                    install_id: installId,
+                    fcm_token: fcmToken,
+                    tos: new Date().toISOString(),
+                    model: 'PC',
+                    serial_number: installId,
+                    locale: 'de_DE',
+                }),
+            });
+            
+            if (!response.ok) {
+                throw new Error(`Failed to fetch account from ${endpoints[i]}: ${response.status}`);
+            }
+            
+            return await response.json();
+        } catch (error) {
+            console.warn(`Failed to fetch account from ${endpoints[i]}:`, error.message);
+            lastError = error;
+            
+            if (primaryOnly) break;
+            
+            if (i === endpoints.length - 1) {
+                throw lastError;
+            }
+        }
+    }
+    
+    throw lastError;
+};
+
 const extractKey = (data, keyName) =>
     data.match(new RegExp(`${keyName}:\\s(.+)`))?.[1].trim() || null;
 
