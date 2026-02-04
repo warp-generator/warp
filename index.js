@@ -71,11 +71,11 @@ const fetchKeys = async (primaryOnly = false) => {
     
     for (let i = 0; i < endpoints.length; i++) {
         try {
-            console.log(`Trying keys endpoint: ${endpoints[i]}`);
+            console.log(`Trying keys endpoint: ${i}`);
             const response = await fetchWithTimeout(endpoints[i]);
             
             if (!response.ok) {
-                throw new Error(`Failed to fetch keys from ${endpoints[i]}: ${response.status}`);
+                throw new Error(`Failed to fetch keys from ${i}: ${response.status}`);
             }
             
             const data = await response.text();
@@ -84,7 +84,7 @@ const fetchKeys = async (primaryOnly = false) => {
                 privateKey: extractKey(data, 'PrivateKey'),
             };
         } catch (error) {
-            console.warn(`Failed to fetch from ${endpoints[i]}:`, error.message);
+            console.warn(`Failed to fetch from ${i}:`, error.message);
             lastError = error;
             
             // Если установлен флаг primaryOnly, не пытаемся использовать резервный
@@ -110,11 +110,11 @@ const fetchKeys2 = async (primaryOnly = false) => {
     
     for (let i = 0; i < endpoints.length; i++) {
         try {
-            console.log(`Trying keys2 endpoint: ${endpoints[i]}`);
+            console.log(`Trying keys2 endpoint: ${i}`);
             const response = await fetchWithTimeout(endpoints[i]);
             
             if (!response.ok) {
-                throw new Error(`Failed to fetch keys2 from ${endpoints[i]}: ${response.status}`);
+                throw new Error(`Failed to fetch keys2 from ${i}: ${response.status}`);
             }
             
             const data = await response.text();
@@ -123,7 +123,7 @@ const fetchKeys2 = async (primaryOnly = false) => {
                 privateKey2: extractKey(data, 'PrivateKey'),
             };
         } catch (error) {
-            console.warn(`Failed to fetch keys2 from ${endpoints[i]}:`, error.message);
+            console.warn(`Failed to fetch keys2 from ${i}:`, error.message);
             lastError = error;
             
             if (primaryOnly) break;
@@ -147,7 +147,7 @@ const fetchAccount = async (publicKey, installId, fcmToken, primaryOnly = false)
     
     for (let i = 0; i < endpoints.length; i++) {
         try {
-            console.log(`Trying account endpoint: ${endpoints[i]}`);
+            console.log(`Trying account endpoint: ${i}`);
             const response = await fetchWithTimeout(endpoints[i], {
                 method: 'POST',
                 headers: {
@@ -167,12 +167,12 @@ const fetchAccount = async (publicKey, installId, fcmToken, primaryOnly = false)
             });
             
             if (!response.ok) {
-                throw new Error(`Failed to fetch account from ${endpoints[i]}: ${response.status}`);
+                throw new Error(`Failed to fetch account from ${i}: ${response.status}`);
             }
             
             return await response.json();
         } catch (error) {
-            console.warn(`Failed to fetch account from ${endpoints[i]}:`, error.message);
+            console.warn(`Failed to fetch account from ${i}:`, error.message);
             lastError = error;
             
             if (primaryOnly) break;
