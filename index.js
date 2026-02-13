@@ -282,7 +282,8 @@ showPopup('Failed to generate config. Please try again.', 'error');
 AWGm1.addEventListener('click', async () => {
 	const button = document.getElementById('generateButton2');
     const status = document.getElementById('status');
-    const randomNumber = Math.floor(Math.random() * (99 - 10 + 1)) + 10;
+	const randomEndpoint = generateRandomEndpoint();
+	const randomNumber = Math.floor(Math.random() * (99 - 10 + 1)) + 10;
     button.disabled = true;
     button.classList.add("button--loading");
     try {
@@ -311,7 +312,7 @@ I1 = <b 0xc10000000114367096bb0fb3f58f3a3fb8aaacd61d63a1c8a40e14f7374b8a62dccba6
 [Peer]
 PublicKey = ${accountData.config.peers[0].public_key}
 AllowedIPs = ${allowedIPs}
-Endpoint = engage.cloudflareclient.com:4500`;
+Endpoint = ${randomEndpoint}`;
 	    const content = wireGuardText || "No configuration available";
     if (content === "No configuration available") {
         showPopup('No configuration to download', 'Ошибка');
@@ -334,6 +335,7 @@ showPopup('Failed to generate config. Please try again.', 'error');
 AWGm2.addEventListener('click', async () => {
     	const button = document.getElementById('generateButton3');
     const status = document.getElementById('status');
+	const randomEndpoint = generateRandomEndpoint();
     const randomNumber = Math.floor(Math.random() * (99 - 10 + 1)) + 10;
     button.disabled = true;
     button.classList.add("button--loading");
@@ -365,7 +367,7 @@ I1 = <b 0xc2000000011419fa4bb3599f336777de79f81ca9a8d80d91eeec000044c635cef024a8
 [Peer]
 PublicKey = ${accountData.config.peers[0].public_key}
 AllowedIPs = ${allowedIPs}
-Endpoint = engage.cloudflareclient.com:4500`;
+Endpoint = ${randomEndpoint}`;
 	    const content = wireGuardText || "No configuration available";
     if (content === "No configuration available") {
         showPopup('No configuration to download', 'Ошибка');
@@ -386,6 +388,7 @@ showPopup('Failed to generate config. Please try again.', 'error');
 AWGm3.addEventListener('click', async () => {
     	const button = document.getElementById('generateButton4');
     const status = document.getElementById('status');
+	const randomEndpoint = generateRandomEndpoint();
     const randomNumber = Math.floor(Math.random() * (99 - 10 + 1)) + 10;
     button.disabled = true;
     button.classList.add("button--loading");
@@ -418,7 +421,7 @@ I2 = <b 0x5349502f322e302031303020547279696e670d0a5669613a205349502f322e302f5544
 [Peer]
 PublicKey = ${accountData.config.peers[0].public_key}
 AllowedIPs = ${allowedIPs}
-Endpoint = engage.cloudflareclient.com:4500`;
+Endpoint = ${randomEndpoint}`;
 	    const content = wireGuardText || "No configuration available";
     if (content === "No configuration available") {
         showPopup('No configuration to download', 'Ошибка');
@@ -761,7 +764,7 @@ Endpoint = ${randomEndpoint}`;
 
 
 document.getElementById('telegramButton').onclick = function() {
-    window.location.href = 'https://my-other-projects.vercel.app/';
+    window.location.href = 'https://t.me/warp_1_1_1_1';
 }
 
 
