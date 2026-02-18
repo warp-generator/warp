@@ -18,7 +18,7 @@
 </div>
 <div id="status"></div>
 <div class="grid-container">
-        <div class="containerAWG">
+        <div id="awg" class="containerAWG">
             <div class="header">
                 <img src="AWG.webp" alt="AmneziaWG Icon" class="amnezia-icon">
                 <span class="amnezia-text">AmneziaWG</span>
@@ -29,7 +29,7 @@
   </svg>
 	</button>
         </div>
-            <button id="generateButton1" class="get-btn1"><span class="button__text">Стандартный конфиг</span></button>
+            <button id="generateButton1" class="get-btn1" style="display:none"><span class="button__text">Стандартный конфиг</span></button>
             <button id="generateButton2" class="get-btn2"><span class="button__text">AWG 1.5 (1 вариант)</span></button>
             <button id="generateButton3" class="get-btn3"><span class="button__text">AWG 1.5 (2 вариант)</span></button>
 			<button id="generateButton4" class="get-btn4"><span class="button__text">AWG 1.5 (3 вариант)</span></button>
@@ -42,7 +42,7 @@
 			<button id="generateButton5" class="get-btn5"><span class="button__text">AWG 1.5</span></button>
         </div>
         
-				<div id="throne" class="containerAWG" style="height: 100px">
+				<div id="throne" class="containerAWG" style="height: 100px;display:none">
             <div class="header">
                 <img src="Throne.webp" alt="AmneziaWG Icon" class="amnezia-icon">
                 <span class="amnezia-text">Throne</span>
@@ -64,7 +64,7 @@
             <button id="generateButton10" class="get-btn10"><span class="button__text">AWG 1.5</span></button>
         </div>
 
-				<div id="hiddify" class="containerAWG" style="height: 100px">
+				<div id="hiddify" class="containerAWG" style="height: 100px;display:none">
             <div class="header">
                 <img src="Karing.webp" alt="AmneziaWG Icon" class="amnezia-icon">
                 <span class="karing-text">Karing</span>
@@ -73,7 +73,7 @@
             </div>
             <button id="generateButton9" class="get-btn9"><span class="button__text">WARP</span></button>
         </div>
-<div id="neko" class="containerAWG" style="height: 160px">
+<div id="neko" class="containerAWG" style="height: 160px;display:none">
             <div class="header">
                 <img src="Nekobox.webp" alt="AmneziaWG Icon" class="amnezia-icon">
                 <span class="amnezia-text">NekoBox</span>
@@ -111,17 +111,21 @@
     <input id="xbox" type="radio" name="payment" class="payment-radio" />
   </label>
     <label class="payment-option">
-    <div class="payment-option-content">geohide.ru</div>
+    <div class="payment-option-content">dns.geohide.ru</div>
     <input id="geohide" type="radio" name="payment" class="payment-radio" />
   </label>
     <label class="payment-option">
-    <div class="payment-option-content">comss.one</div>
+    <div class="payment-option-content">dns.comss.one</div>
     <input id="comss" type="radio" name="payment" class="payment-radio" />
   </label>
 </div>		
         
 		
-<div class="modal-line">Сайты</div>
+<div class="modal-line">Раздельное туннелирование    				<label class="toggle">
+					<input class="toggle-checkbox" type="checkbox" id="rules">
+					<div class="toggle-switch"></div>
+					<span class="toggle-label">Исключить LAN</span>
+				</label></div>
 <div class="Sites">
   <label class="payment-option">
     <div class="payment-option-content">
@@ -215,6 +219,40 @@
   </label>
 </div>
 	<div id="info2">IP-адреса взяты с <a id="link" href="https://iplist.opencck.org" target="_blank">iplist.opencck.org</a></div>
+   
+           <div class="modal-line">Сервер</div>
+        <div class="dnsinfo">
+  <label class="server-option">
+    <div class="server-option-content">Стандартный</div>
+    <input id="def" type="radio" name="server" class="server-radio" checked />
+  </label>
+      <label class="server-option">
+    <div class="server-option-content">🇩🇪 Германия</div>
+    <input id="DE" type="radio" name="server" class="server-radio" />
+  </label>
+  <label class="server-option">
+    <div class="server-option-content">🇱🇹 Литва</div>
+    <input id="LT" type="radio" name="server" class="server-radio" />
+  </label>
+  <label class="server-option">
+    <div class="server-option-content">🇳🇱 Нидерланды 1</div>
+    <input id="NL1" type="radio" name="server" class="server-radio" />
+  </label>
+    <label class="server-option">
+    <div class="server-option-content">🇳🇱 Нидерланды 2</div>
+    <input id="NL2" type="radio" name="server" class="server-radio" />
+  </label>
+    <label class="server-option">
+    <div class="server-option-content">🇬🇧 Британия</div>
+    <input id="GB" type="radio" name="server" class="server-radio" />
+  </label>
+    <label class="server-option">
+    <div class="server-option-content">🇫🇮 Финляндия</div>
+    <input id="FL" type="radio" name="server" class="server-radio" />
+  </label>
+</div>		
+   <div id="info2">Серверы предоставил <a id="link" href="https://t.me/findllimonix" target="_blank">llimonix</a></div>
+
    </div>
 </div>
 
