@@ -41,7 +41,7 @@ function generateRandomEndpoint() {
     };
     
     const endpoint = serverMap[selectedServer] || 'de.tribukvy.ltd'; // По умолчанию Германия
-    return `${endpoint}:4500`;
+    return `${endpoint}:${port}`;
 }
 
 // Добавляем функцию для получения выбранного сервера
