@@ -2,9 +2,8 @@ body {
     
     justify-content: center;
     align-items: center;
- 
     background-color: #f4f4f4;
-    font-family: 'Roboto', sans-serif;
+    font-family: "Twemoji Country Flags", 'Roboto', sans-serif;
     width: 100%; /* Занимает всю ширину */
     margin: 0; /* Убираем отступы */
 }
