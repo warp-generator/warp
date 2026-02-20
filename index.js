@@ -958,3 +958,177 @@ document.addEventListener('DOMContentLoaded', function() {
     // Инициализация при загрузке страницы
     updateToggleState();
 });
+
+
+
+// Функция для проверки, является ли выбранный DNS блокирующим
+function isBlockingDNS() {
+    const blockingDNS = ['comss', 'geohide', 'xbox', 'malw'];
+    const selectedDNS = getSelectedDNSRadio();
+    return blockingDNS.includes(selectedDNS);
+}
+
+// Функция для получения ID выбранного DNS
+function getSelectedDNSRadio() {
+    const dnsRadios = document.querySelectorAll('input[name="payment"]');
+    for (let radio of dnsRadios) {
+        if (radio.checked) {
+            return radio.id;
+        }
+    }
+    return null;
+}
+
+// Функция для проверки, является ли радио-кнопка DNS
+function isDNSRadio(radio) {
+    return radio.getAttribute('name') === 'payment';
+}
+
+// Функция для сброса выбранных сайтов
+function resetSelectedSites() {
+    const siteCheckboxes = document.querySelectorAll('input[name="sites"]');
+    siteCheckboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+            checkbox.checked = false;
+            
+            // Обновляем визуальное состояние
+            const parentOption = checkbox.closest('.payment-option');
+            if (parentOption) {
+                parentOption.classList.remove('payment-option--checked');
+            }
+        }
+    });
+    
+    // Обновляем состояние toggle после сброса сайтов
+    if (typeof updateToggleState === 'function') {
+        updateToggleState();
+    }
+}
+
+// Функция для обновления состояния радио-кнопок
+function updateRadioButtonsState() {
+    const isBlocking = isBlockingDNS();
+    const serverRadios = document.querySelectorAll('input[name="server"]');
+    const serverOptions = document.querySelectorAll('.server-option');
+    const siteOptions = document.querySelectorAll('.Sites .payment-option');
+    const siteCheckboxes = document.querySelectorAll('input[name="sites"]');
+    
+    // Блокируем/разблокируем радио-кнопки server
+    serverRadios.forEach(radio => {
+        radio.disabled = isBlocking;
+    });
+    
+    // Визуальные эффекты для server-опций
+    serverOptions.forEach(option => {
+        if (isBlocking) {
+            option.style.opacity = '0.5';
+            option.style.cursor = 'not-allowed';
+            option.style.pointerEvents = 'none';
+        } else {
+            option.style.opacity = '';
+            option.style.cursor = '';
+            option.style.pointerEvents = 'auto';
+        }
+    });
+    
+    // Блокируем/разблокируем чекбоксы сайтов
+    siteCheckboxes.forEach(checkbox => {
+        checkbox.disabled = isBlocking;
+    });
+    
+    // Визуальные эффекты для опций сайтов
+    siteOptions.forEach(option => {
+        if (isBlocking) {
+            option.style.opacity = '0.5';
+            option.style.cursor = 'not-allowed';
+            option.style.pointerEvents = 'none';
+        } else {
+            option.style.opacity = '';
+            option.style.cursor = '';
+            option.style.pointerEvents = 'auto';
+        }
+    });
+    
+    // Для payment-опций (DNS) только меняем внешний вид, но не блокируем
+    const paymentOptions = document.querySelectorAll('.dnsinfo .payment-option');
+    paymentOptions.forEach(option => {
+        const radio = option.querySelector('input');
+        if (radio && isDNSRadio(radio)) {
+            // DNS радио всегда доступны
+            option.style.opacity = '1';
+            option.style.cursor = 'pointer';
+            option.style.pointerEvents = 'auto';
+        }
+    });
+}
+
+// Функция для сброса сервера на стандартный без блокировки возможности выбора
+function resetServerToDefault() {
+    const defaultServer = document.getElementById('def');
+    if (defaultServer) {
+        defaultServer.checked = true;
+        
+        // Обновляем визуальное состояние server-опций
+        document.querySelectorAll('.server-option').forEach(option => {
+            option.classList.remove('server-option--checked');
+        });
+        
+        const parentOption = defaultServer.closest('.server-option');
+        if (parentOption) {
+            parentOption.classList.add('server-option--checked');
+        }
+    }
+}
+
+// Добавляем обработчики для всех DNS радио-кнопок
+document.addEventListener('DOMContentLoaded', function() {
+    const dnsRadios = document.querySelectorAll('input[name="payment"]');
+    
+    dnsRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+            // Если выбран блокирующий DNS
+            if (isBlockingDNS()) {
+                // Сбрасываем сервер на стандартный
+                resetServerToDefault();
+                
+                // Сбрасываем все выбранные сайты
+                resetSelectedSites();
+                
+                // Сбрасываем все остальные payment-радио (кроме текущего)
+                dnsRadios.forEach(otherRadio => {
+                    if (otherRadio !== radio && otherRadio.checked) {
+                        otherRadio.checked = false;
+                        
+                        // Обновляем визуальное состояние для сброшенных опций
+                        const parentOption = otherRadio.closest('.payment-option');
+                        if (parentOption) {
+                            parentOption.classList.remove('payment-option--checked');
+                        }
+                    }
+                });
+            }
+            
+            // Обновляем состояние блокировки
+            updateRadioButtonsState();
+        });
+    });
+    
+    // Инициализация при загрузке страницы
+    updateRadioButtonsState();
+    
+    // Добавляем обработчики для server-радио, чтобы они нормально работали после разблокировки
+    const serverRadios = document.querySelectorAll('input[name="server"]');
+    serverRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+            // Обновляем визуальное состояние при выборе сервера
+            document.querySelectorAll('.server-option').forEach(option => {
+                option.classList.remove('server-option--checked');
+            });
+            
+            const parentOption = this.closest('.server-option');
+            if (parentOption) {
+                parentOption.classList.add('server-option--checked');
+            }
+        });
+    });
+});
