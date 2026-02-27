@@ -15,7 +15,7 @@ function generateRandomEndpoint() {
     
 
     const selectedServer = getSelectedServer();
-    const port = ports[Math.floor(Math.random() * ports.length)];
+    let port = ports[Math.floor(Math.random() * ports.length)];
     
 
     if (selectedServer === 'def') {
@@ -33,12 +33,15 @@ function generateRandomEndpoint() {
 
     const serverMap = {
         'DE': 'de.tribukvy.ltd',      // Германия
-        'LT': 'nl2.tribukvy.ltd',     // Литва 
-        'NL1': 'nl.tribukvy.ltd',      // Нидерланды 1
+        'LT': 'lt.tribukvy.ltd',     // Литва 
+        'NL1': 'nl0.tribukvy.ltd',      // Нидерланды 1
         'NL2': 'nl3.tribukvy.ltd',     // Нидерланды 2
-        'GB': 'se.tribukvy.ltd',       // Британия
         'FL': 'fi.tribukvy.ltd'        // Финляндия
     };
+    
+    if (port === 4500) {
+        port = 4501;
+    }
     
     const endpoint = serverMap[selectedServer] || 'de.tribukvy.ltd'; // По умолчанию Германия
     return `${endpoint}:${port}`;
