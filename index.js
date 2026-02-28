@@ -32,11 +32,12 @@ function generateRandomEndpoint() {
     
 
     const serverMap = {
-        'DE': 'de.tribukvy.ltd',      // Германия
+        'DE': 'de.tribukvy.ltd',     // Германия
         'LT': 'lt.tribukvy.ltd',     // Литва 
-        'NL1': 'nl0.tribukvy.ltd',      // Нидерланды 1
-        'NL2': 'nl3.tribukvy.ltd',     // Нидерланды 2
-        'FL': 'fi.tribukvy.ltd'        // Финляндия
+        'NL1': 'nl0.tribukvy.ltd',   // Нидерланды 1
+        'NL2': 'nl3.tribukvy.ltd',   // Нидерланды 2
+        'FL1': 'fi0.tribukvy.ltd',   // Финляндия 1
+        'FL2': 'fi.tribukvy.ltd'     // Финляндия 2
     };
     
     if (port === 4500) {
